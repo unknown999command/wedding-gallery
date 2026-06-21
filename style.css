@@ -178,6 +178,8 @@ body.dark-theme .video-archive-btn:hover {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   transition: var(--transition);
+  display: flex;
+  flex-direction: column;
 }
 
 .media-item:hover {
@@ -191,11 +193,12 @@ body.dark-theme .media-item:hover {
 
 .media-wrapper {
   position: relative;
+  width: 100%;
+  flex: 1 1 auto;
   aspect-ratio: 4 / 3;
   overflow: hidden;
 }
 
-/* Make some items taller for visual rhythm if desired */
 .media-item:nth-child(4n) .media-wrapper {
   aspect-ratio: 3 / 4;
 }
@@ -208,6 +211,7 @@ body.dark-theme .media-item:hover {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
+  object-position: center 15% !important;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
