@@ -1,4 +1,5 @@
 // Minimalist Wedding Gallery script.js
+// Handles dynamic rendering from mediaList and the universal lightbox
 
 document.addEventListener('DOMContentLoaded', () => {
   const body = document.body;
@@ -13,8 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightboxMediaContainer = document.getElementById('lightboxMediaContainer');
   const lightboxCaption = document.getElementById('lightboxCaption');
   
-  // Media items data list
-  const mediaItems = Array.from(document.querySelectorAll('.media-item'));
+  const mediaGrid = document.getElementById('mediaGrid');
   let currentMediaIndex = 0;
 
   // === 1. THEME SWITCHING (LIGHT/DARK) ===
@@ -43,14 +43,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // === 2. UNIVERSAL LIGHTBOX ===
-  mediaItems.forEach((item, index) => {
-    item.addEventListener('click', () => {
-      currentMediaIndex = index;
-      openLightbox();
+  // === 2. DYNAMIC GRID RENDERING ===
+  if (typeof mediaList !== 'undefined' && Array.isArray(mediaList)) {
+    mediaList.forEach((item, index) => {
+      const card = document.createElement('div');
+      card.className = `media-item ${item.type}`;
+      
+      if (item.type === 'video') {
+        card.innerHTML = `
+          <div class="media-wrapper">
+            <video src="${item.src}" preload="metadata" muted></video>
+            <div class="media-hover-overlay">
+              <i class="fas fa-play"></i>
+            </div>
+            <span class="video-badge"><i class="fas fa-video"></i> Видео</span>
+          </div>
+        `;
+      } else {
+        card.innerHTML = `
+          <div class="media-wrapper">
+            <img src="${item.src}" alt="${item.alt}" loading="lazy">
+            <div class="media-hover-overlay">
+              <i class="fas fa-expand"></i>
+            </div>
+          </div>
+        `;
+      }
+      
+      // Open Lightbox on Click
+      card.addEventListener('click', () => {
+        currentMediaIndex = index;
+        openLightbox();
+      });
+      
+      mediaGrid.appendChild(card);
     });
-  });
+  } else {
+    console.error("mediaList array is not defined. Make sure media-list.js is loaded.");
+    mediaGrid.innerHTML = "<p style='grid-column: 1/-1; text-align: center;'>Медиафайлы не найдены.</p>";
+  }
 
+  // === 3. UNIVERSAL LIGHTBOX ===
   function openLightbox() {
     lightboxModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden'; // Lock scrolling
@@ -60,44 +93,40 @@ document.addEventListener('DOMContentLoaded', () => {
   function closeLightbox() {
     lightboxModal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = ''; // Unlock scrolling
-    // Clear container to stop playing videos
-    lightboxMediaContainer.innerHTML = '';
+    lightboxMediaContainer.innerHTML = ''; // Clear media to stop audio/video
   }
 
   function updateLightboxMedia() {
-    const activeItem = mediaItems[currentMediaIndex];
-    if (!activeItem) return;
+    const currentImg = mediaList[currentMediaIndex];
+    if (!currentImg) return;
 
-    // Check media type
-    const isVideo = activeItem.classList.contains('video');
-    const title = activeItem.querySelector('img').getAttribute('alt');
-    
-    // Smooth transition clean-up
     lightboxMediaContainer.innerHTML = '';
-    lightboxCaption.textContent = title;
+    // Format title from filename (remove extension and directory path)
+    const rawName = currentImg.alt;
+    const cleanTitle = rawName.replace(/img_/, '').split('.')[0];
+    lightboxCaption.textContent = cleanTitle.toUpperCase();
 
-    if (isVideo) {
-      const videoUrl = activeItem.getAttribute('data-video-url');
+    if (currentImg.type === 'video') {
       const videoElement = document.createElement('video');
-      videoElement.setAttribute('src', videoUrl);
+      videoElement.setAttribute('src', currentImg.src);
       videoElement.setAttribute('controls', 'true');
       videoElement.setAttribute('autoplay', 'true');
       videoElement.setAttribute('playsinline', 'true');
       lightboxMediaContainer.appendChild(videoElement);
     } else {
-      const imgUrl = activeItem.querySelector('img').getAttribute('src');
       const imgElement = document.createElement('img');
-      imgElement.setAttribute('src', imgUrl);
-      imgElement.setAttribute('alt', title);
+      imgElement.setAttribute('src', currentImg.src);
+      imgElement.setAttribute('alt', cleanTitle);
       lightboxMediaContainer.appendChild(imgElement);
     }
   }
 
   function navigateLightbox(direction) {
+    if (!mediaList || mediaList.length === 0) return;
     if (direction === 'next') {
-      currentMediaIndex = (currentMediaIndex + 1) % mediaItems.length;
+      currentMediaIndex = (currentMediaIndex + 1) % mediaList.length;
     } else if (direction === 'prev') {
-      currentMediaIndex = (currentMediaIndex - 1 + mediaItems.length) % mediaItems.length;
+      currentMediaIndex = (currentMediaIndex - 1 + mediaList.length) % mediaList.length;
     }
     updateLightboxMedia();
   }

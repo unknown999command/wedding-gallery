@@ -1,0 +1,2 @@
+# Ignore heavy video assets (14 GB) to prevent GitHub Pages upload limits
+videos/
