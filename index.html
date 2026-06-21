@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кирилл &amp; Александра — Свадебная галерея</title>
+  <meta name="description" content="Фотографии и видео с нашей свадьбы">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome for Controls -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-theme">
+  <!-- Minimal Header -->
+  <header class="header">
+    <div class="header-container">
+      <span class="wedding-names">Кирилл &amp; Александра</span>
+      <button class="theme-toggle" id="themeToggle" aria-label="Сменить тему">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Simple Title -->
+      <div class="gallery-intro">
+        <h1>Свадебный альбом</h1>
+        <p class="wedding-date">16 июня 2026</p>
+      </div>
+
+      <!-- Unified Grid (Photos & Videos) -->
+      <div class="media-grid" id="mediaGrid">
+        <!-- Photo Item 1 -->
+        <div class="media-item photo" data-index="0">
+          <div class="media-wrapper">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80" alt="Церемония у алтаря" loading="lazy">
+            <div class="media-hover-overlay">
+              <i class="fas fa-expand"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo Item 2 -->
+        <div class="media-item photo" data-index="1">
+          <div class="media-wrapper">
+            <img src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=800&q=80" alt="Портрет невесты" loading="lazy">
+            <div class="media-hover-overlay">
+              <i class="fas fa-expand"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Item 1 (represented by thumbnail, click to play in lightbox/modal) -->
+        <div class="media-item video" data-index="2" data-video-url="https://assets.mixkit.co/videos/preview/mixkit-bride-and-groom-having-their-first-dance-34354-large.mp4">
+          <div class="media-wrapper">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" alt="Первый танец (Видео)" loading="lazy">
+            <div class="media-hover-overlay">
+              <i class="fas fa-play"></i>
+            </div>
+            <span class="video-badge"><i class="fas fa-video"></i> Видео</span>
+          </div>
+        </div>
+
+        <!-- Photo Item 3 -->
+        <div class="media-item photo" data-index="3">
+          <div class="media-wrapper">
+            <img src="https://images.unsplash.com/photo-1549417229-aa67d3263c09?auto=format&fit=crop&w=800&q=80" alt="Декор стола" loading="lazy">
+            <div class="media-hover-overlay">
+              <i class="fas fa-expand"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo Item 4 -->
+        <div class="media-item photo" data-index="4">
+          <div class="media-wrapper">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" alt="Счастливые молодожены" loading="lazy">
+            <div class="media-hover-overlay">
+              <i class="fas fa-expand"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Item 2 -->
+        <div class="media-item video" data-index="5" data-video-url="https://assets.mixkit.co/videos/preview/mixkit-wedding-rings-on-a-flower-bouquet-34346-large.mp4">
+          <div class="media-wrapper">
+            <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80" alt="Свадебные детали (Видео)" loading="lazy">
+            <div class="media-hover-overlay">
+              <i class="fas fa-play"></i>
+            </div>
+            <span class="video-badge"><i class="fas fa-video"></i> Видео</span>
+          </div>
+        </div>
+
+        <!-- Photo Item 5 -->
+        <div class="media-item photo" data-index="6">
+          <div class="media-wrapper">
+            <img src="https://images.unsplash.com/photo-1507504038482-7621c3798ac7?auto=format&fit=crop&w=800&q=80" alt="Жених" loading="lazy">
+            <div class="media-hover-overlay">
+              <i class="fas fa-expand"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo Item 6 -->
+        <div class="media-item photo" data-index="7">
+          <div class="media-wrapper">
+            <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=800&q=80" alt="Бенгальские огни" loading="lazy">
+            <div class="media-hover-overlay">
+              <i class="fas fa-expand"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo Item 7 -->
+        <div class="media-item photo" data-index="8">
+          <div class="media-wrapper">
+            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80" alt="Прогулка" loading="lazy">
+            <div class="media-hover-overlay">
+              <i class="fas fa-expand"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Universal Lightbox (Supports Photos & Videos) -->
+  <div class="lightbox" id="lightboxModal" aria-hidden="true" role="dialog">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Закрыть"><i class="fas fa-times"></i></button>
+    <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Назад"><i class="fas fa-chevron-left"></i></button>
+    
+    <div class="lightbox-content">
+      <!-- Media container (JS will inject either <img> or <video>) -->
+      <div id="lightboxMediaContainer"></div>
+      <div class="lightbox-caption" id="lightboxCaption">Описание</div>
+    </div>
+    
+    <button class="lightbox-nav next" id="lightboxNext" aria-label="Вперед"><i class="fas fa-chevron-right"></i></button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; Кирилл &amp; Александра, 2026</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

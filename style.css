@@ -1,0 +1,357 @@
+/* Minimalist Wedding Gallery CSS */
+
+/* Base Reset & Variables */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  /* Light Cozy theme */
+  --bg-primary: #F7F6F3;
+  --bg-secondary: #FFFFFF;
+  --text-primary: #2C2A29;
+  --text-secondary: #6B6865;
+  --border-color: #E6E4DF;
+  --overlay-bg: rgba(247, 246, 243, 0.9);
+  
+  --transition: all 0.3s ease;
+}
+
+body.dark-theme {
+  /* Clean Dark theme */
+  --bg-primary: #121212;
+  --bg-secondary: #1C1C1C;
+  --text-primary: #E5E5E5;
+  --text-secondary: #999999;
+  --border-color: #2D2D2D;
+  --overlay-bg: rgba(18, 18, 18, 0.9);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  padding-top: 80px; /* offset header */
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  z-index: 100;
+  transition: var(--transition);
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wedding-names {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 1.1rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+.theme-toggle:hover {
+  background-color: var(--border-color);
+}
+
+/* Intro Section */
+.gallery-intro {
+  text-align: center;
+  margin: 40px 0 60px 0;
+}
+
+.gallery-intro h1 {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.wedding-date {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Grid Layout */
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 80px;
+}
+
+.media-item {
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.media-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+body.dark-theme .media-item:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.media-wrapper {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+/* Make some items taller for visual rhythm if desired */
+.media-item:nth-child(4n) .media-wrapper {
+  aspect-ratio: 3 / 4;
+}
+
+.media-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.media-item:hover img {
+  transform: scale(1.04);
+}
+
+/* Hover effect */
+.media-hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.media-hover-overlay i {
+  color: #FFFFFF;
+  font-size: 1.5rem;
+}
+
+.media-item:hover .media-hover-overlay {
+  opacity: 1;
+}
+
+/* Video specific badge */
+.video-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Universal Lightbox */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(10, 10, 10, 0.98);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox[aria-hidden="false"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  font-size: 1.8rem;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: var(--transition);
+  z-index: 210;
+}
+
+.lightbox-close:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 20px;
+  opacity: 0.5;
+  transition: var(--transition);
+  z-index: 210;
+}
+
+.lightbox-nav:hover {
+  opacity: 1;
+  color: #FFFFFF;
+}
+
+.lightbox-nav.prev { left: 16px; }
+.lightbox-nav.next { right: 16px; }
+
+.lightbox-content {
+  width: 85%;
+  max-width: 900px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#lightboxMediaContainer {
+  width: 100%;
+  max-height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#lightboxMediaContainer img,
+#lightboxMediaContainer video {
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 2px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  animation: fade-in 0.25s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.lightbox-caption {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-top: 16px;
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 40px 0;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .media-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .gallery-intro h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .media-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .lightbox-nav {
+    font-size: 1.5rem;
+    padding: 10px;
+  }
+  
+  .lightbox-nav.prev { left: 4px; }
+  .lightbox-nav.next { right: 4px; }
+  
+  .lightbox-content {
+    width: 90%;
+  }
+}
