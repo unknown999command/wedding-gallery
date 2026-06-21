@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
       lightboxMediaContainer.appendChild(videoElement);
     } else {
       const imgElement = document.createElement('img');
-      imgElement.setAttribute('src', currentImg.src);
+      imgElement.setAttribute('src', currentImg.full);
       imgElement.setAttribute('alt', cleanTitle);
       lightboxMediaContainer.appendChild(imgElement);
     }
