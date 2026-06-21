@@ -119,6 +119,50 @@ body {
   text-transform: uppercase;
 }
 
+.video-archive-container {
+  margin-top: 20px;
+}
+
+.video-archive-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  text-decoration: none;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: var(--transition);
+}
+
+.video-archive-btn i {
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  transition: var(--transition);
+}
+
+.video-archive-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--text-primary);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+}
+
+.video-archive-btn:hover i {
+  color: #ff4d6d; /* Soft red heart-like color on hover */
+}
+
+body.dark-theme .video-archive-btn {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .video-archive-btn:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
 /* Grid Layout */
 .media-grid {
   display: grid;
